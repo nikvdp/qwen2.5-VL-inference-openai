@@ -3,7 +3,7 @@ services:
     build: 
       context: .
       args:
-        - MODEL_NAME=${MODEL_NAME:-Qwen2.5-VL-7B-Instruct}
+        - QWEN_MODEL=${QWEN_MODEL:-Qwen2.5-VL-7B-Instruct}
     ports:
       - "9192:9192"
     volumes:

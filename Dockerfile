@@ -4,7 +4,7 @@ FROM nvidia/cuda:12.3.1-devel-ubuntu22.04
 WORKDIR /app
 
 # Add build arg for model name
-ARG MODEL_NAME=Qwen2.5-VL-7B-Instruct
+ARG QWEN_MODEL=Qwen2.5-VL-7B-Instruct
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -13,7 +13,7 @@ ENV PORT=9192
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=${CUDA_HOME}/bin:${PATH}
 ENV LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
-ENV QWEN_MODEL=${MODEL_NAME}
+ENV QWEN_MODEL=${QWEN_MODEL}
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
