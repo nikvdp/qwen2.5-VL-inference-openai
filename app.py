@@ -16,8 +16,10 @@ import GPUtil
 import base64
 from PIL import Image
 import io
+import os
 
-MODEL_DIR = "/app/models/Qwen2.5-VL-7B-Instruct"
+MODEL_NAME = os.getenv('QWEN_MODEL', 'Qwen2.5-VL-7B-Instruct')
+MODEL_DIR = f"/app/models/{MODEL_NAME}"
 
 # Configure logging
 logging.basicConfig(
@@ -221,11 +223,11 @@ async def list_models():
     return ModelList(
         data=[
             ModelCard(
-                id="Qwen2.5-VL-7B-Instruct",
+                id=MODEL_NAME,
                 created=1709251200,
                 owned_by="Qwen",
                 permission=[{
-                    "id": "modelperm-Qwen2.5-VL-7B-Instruct",
+                    "id": f"modelperm-{MODEL_NAME}",
                     "created": 1709251200,
                     "allow_create_engine": False,
                     "allow_sampling": True,
