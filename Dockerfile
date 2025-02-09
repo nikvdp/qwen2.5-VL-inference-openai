@@ -35,6 +35,10 @@ RUN pip3 install --no-cache-dir packaging && \
 # Create necessary directories
 RUN mkdir -p /app/models /app/webhook_logs
 
+COPY download_model.py .
+
+RUN python3 download_model.py
+
 # Copy application code
 COPY . .
 

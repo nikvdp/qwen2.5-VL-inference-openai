@@ -4,8 +4,8 @@ services:
     ports:
       - "9192:9192"
     volumes:
-      - ./models:/app/models
-      - ./:/app
+      # - ./models:/app/models
+      # - ./:/app
       - ./webhook_logs:/app/webhook_logs:rw
     deploy:
       resources:
