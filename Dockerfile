@@ -11,7 +11,6 @@ ENV PORT=9192
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=${CUDA_HOME}/bin:${PATH}
 ENV LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
-ENV QWEN_MODEL=${QWEN_MODEL}
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -41,6 +40,7 @@ COPY download_model.py .
 
 # Add build arg for model name
 ARG QWEN_MODEL=Qwen2.5-VL-7B-Instruct
+ENV QWEN_MODEL=${QWEN_MODEL}
 
 RUN python3 download_model.py
 
