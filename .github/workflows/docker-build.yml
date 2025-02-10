@@ -3,62 +3,39 @@ name: Docker Build and Push
 on:
   push:
     branches: [ "use-build-stages" ]
-  # pull_request:
-  #   branches: [ "main" ]
   workflow_dispatch:
-
-env:
-  # Use github.repository owner's lowercase username
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/qwen2.5-vl-inference-openai
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
 
     strategy:
       matrix:
         model_variant: 
-          - Qwen2.5-VL-7B-Instruct
-          - Qwen2.5-VL-1.5B-Instruct
-          - Qwen2.5-VL-0.5B-Instruct
+          - Qwen2.5-VL-3B-Instruct
+          # - Qwen2.5-VL-7B-Instruct
+          # - Qwen2.5-VL-72B-Instruct 
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to the Container registry
+      - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=${{ matrix.model_variant }}-${{ github.sha }}
-            type=raw,value=${{ matrix.model_variant }}-latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/qwen2.5-vl-inference-openai:${{ matrix.model_variant }}-${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/qwen2.5-vl-inference-openai:${{ matrix.model_variant }}-latest
           build-args: |
             QWEN_MODEL=${{ matrix.model_variant }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
