@@ -36,7 +36,7 @@ If you want to build your own version of the container locally, you can do so
 by cloning this repo and then running `docker-compose build`. This will build
 the `7b` variant by default, but if you want to build a different variant you
 can set the model names using the `QWEN_MODEL` env var to any of the variants
-available in the huggingface collection. 
+available in the [huggingface collection](https://huggingface.co/collections/Qwen/qwen25-vl-6795ffac22b334a837c0f9a5). 
 
 At the time of writing the valid values for `QWEN_MODEL` are;
 
