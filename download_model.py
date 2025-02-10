@@ -4,8 +4,8 @@ import torch
 from accelerate import init_empty_weights
 from accelerate.utils import load_and_quantize_model
 
-MODEL_NAME = 'Qwen2.5-VL-7B-Instruct'
-MODEL_DIR = f"models/{os.getenv('QWEN_MODEL', MODEL_NAME)}"
+MODEL_NAME = os.getenv('QWEN_MODEL', "Qwen2.5-VL-7B-Instruct")
+MODEL_DIR = f"models/{MODEL_NAME}"
 
 def download_model():
     print(f"Downloading model '{MODEL_NAME}' to '{MODEL_DIR}'...")
