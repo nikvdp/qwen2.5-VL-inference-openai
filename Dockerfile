@@ -3,8 +3,6 @@ FROM nvidia/cuda:12.3.1-devel-ubuntu22.04
 # Set working directory
 WORKDIR /app
 
-# Add build arg for model name
-ARG QWEN_MODEL=Qwen2.5-VL-7B-Instruct
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -40,6 +38,9 @@ RUN pip3 install --no-cache-dir packaging && \
 RUN mkdir -p /app/models /app/webhook_logs
 
 COPY download_model.py .
+
+# Add build arg for model name
+ARG QWEN_MODEL=Qwen2.5-VL-7B-Instruct
 
 RUN python3 download_model.py
 
