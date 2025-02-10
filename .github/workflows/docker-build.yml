@@ -7,8 +7,8 @@ on:
 
 jobs:
   build-and-push:
-    # runs-on: ubuntu-latest-xlarge
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-xlarge
+    # runs-on: ubuntu-latest
     permissions:
       packages: write
 
@@ -20,13 +20,13 @@ jobs:
           # - Qwen2.5-VL-72B-Instruct
 
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          remove-dotnet: true
-          remove-android: true
-          remove-haskell: true
-          remove-codeql: true
+      # - name: Maximize build space
+      #   uses: easimon/maximize-build-space@master
+      #   with:
+      #     remove-dotnet: true
+      #     remove-android: true
+      #     remove-haskell: true
+      #     remove-codeql: true
 
       - name: Checkout repository
         uses: actions/checkout@v4
