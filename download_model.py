@@ -8,7 +8,7 @@ MODEL_NAME = 'Qwen2.5-VL-7B-Instruct'
 MODEL_DIR = f"models/{os.getenv('QWEN_MODEL', MODEL_NAME)}"
 
 def download_model():
-    print(f"Downloading model to {MODEL_DIR}...")
+    print(f"Downloading model '{MODEL_NAME}' to '{MODEL_DIR}'...")
     
     # Create directory if it doesn't exist
     os.makedirs(MODEL_DIR, exist_ok=True)

@@ -147,7 +147,7 @@ def initialize_model():
     if model is None or processor is None:
         try:
             start_time = time.time()
-            logger.info("Starting model initialization...")
+            logger.info(f"Starting model initialization for {MODEL_NAME}...")
             log_system_info()
             
             try:
