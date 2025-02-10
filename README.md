@@ -1,5 +1,59 @@
 # Qwen2.5-VL API Server
 
+## Running the container directly
+This is a fork of https://github.com/phildougherty/qwen2.5-VL-inference-openai
+which has been updated to include the model in the docker image itself so that
+it can be run directly from the docker container and to support the 3b and 72b
+variants (in addition to the 7b variant that was originally) 
+
+To use the prebuilt versions you can clone this repo and use the docker-compose
+file, or just run it with a docker incantation like the following:
+
+```bash
+docker run -d --gpus all \
+  -p 9192:9192 \
+  -e NVIDIA_VISIBLE_DEVICES=all \
+  -e DEV_MODE=true \
+  --shm-size=8gb \
+  --restart unless-stopped \
+  ghcr.io/nikvdp/qwen-vl
+```
+
+You can also specify which variant to run using docker tags (`:7b` is the
+default, also aliased as `:latest`). 
+
+Valid tags are:
+
+```
+ghcr.io/nikvdp/qwen-vl:3b
+ghcr.io/nikvdp/qwen-vl:7b
+ghcr.io/nikvdp/qwen-vl:72b
+```
+
+## Buliding the container locally
+
+If you want to build your own version of the container locally, you can do so
+by cloning this repo and then running `docker-compose build`. This will build
+the `7b` variant by default, but if you want to build a different variant you
+can set the model names using the `QWEN_MODEL` env var to any of the variants
+available in the huggingface collection. 
+
+At the time of writing the valid values for `QWEN_MODEL` are;
+
+- `Qwen2.5-VL-3B-Instruct`
+- `Qwen2.5-VL-7B-Instruct`
+- `Qwen2.5-VL-72B-Instruct`
+
+So to build the 3b variant you could do something like:
+
+```bash
+export QWEN_MODEL="Qwen2.5-VL-3B-Instruct"
+docker-compose build
+```
+
+
+# Original README
+
 An OpenAI-compatible API server for the Qwen2.5-VL vision-language model, enabling multimodal conversations with image understanding capabilities.
 
 ## Features
