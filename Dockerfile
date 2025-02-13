@@ -70,5 +70,9 @@ EXPOSE 9192
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:9192/health || exit 1
 
+# set the model var in the second img too
+ARG QWEN_MODEL=Qwen2.5-VL-7B-Instruct
+ENV QWEN_MODEL=${QWEN_MODEL}
+
 # Start application
 CMD ["python3", "app.py"]
