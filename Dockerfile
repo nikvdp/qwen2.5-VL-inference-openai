@@ -52,6 +52,8 @@ ENV CUDA_HOME=/usr/local/cuda
 ENV PATH="/root/.local/bin:${CUDA_HOME}/bin:${PATH}"
 ENV LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
 
+RUN apt-get update && apt-get install -y python3-pip
+
 # Copy installed Python packages from builder stage
 COPY --from=builder /root/.local /root/.local
 
